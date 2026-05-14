@@ -40,8 +40,6 @@ def get_route_type(route_tag):
         num = int(route_tag.lstrip("0") or "0")
     except ValueError:
         return "bus"
-    if num in [1, 2, 3, 4]:
-        return "subway"
     if num in [301, 304, 306, 309, 310] or 501 <= num <= 512:
         return "streetcar"
     return "bus"

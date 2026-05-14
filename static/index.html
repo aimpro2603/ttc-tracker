@@ -151,7 +151,6 @@
       <button class="mode-btn active" id="mode-all"       onclick="setMode('all')">All</button>
       <button class="mode-btn"        id="mode-bus"       onclick="setMode('bus')">🚌 Bus</button>
       <button class="mode-btn"        id="mode-streetcar" onclick="setMode('streetcar')">🚋 Streetcar</button>
-      <button class="mode-btn"        id="mode-subway"    onclick="setMode('subway')">🚇 Subway</button>
     </div>
     <div class="search-bar">
       <input id="route-input" type="text" inputmode="numeric" placeholder="Route number (e.g. 501, 29, 1)" />
@@ -160,7 +159,7 @@
 
     <div class="breadcrumb" id="breadcrumb" style="display:none;"></div>
     <div class="content" id="content">
-      <div class="empty"><div class="icon">🚌</div>Enter a route number to get started.<br>Try <b>501</b> (Queen streetcar), <b>1</b> (Yonge subway), or <b>29</b> (Dufferin bus).</div>
+      <div class="empty"><div class="icon">🚌</div>Enter a route number to get started.<br>Try <b>501</b> (Queen streetcar) or <b>29</b> (Dufferin bus).<br><small style='color:var(--text3)'>Note: subway lines are not available via this data source.</small></div>
     </div>
   </div>
 
@@ -182,7 +181,7 @@
   // ── Mode filter ───────────────────────────────────────────────────────────
   function setMode(m) {
     mode = m;
-    ['all','bus','streetcar','subway'].forEach(x => {
+    ['all','bus','streetcar'].forEach(x => {
       document.getElementById('mode-'+x).className = 'mode-btn' + (x === m ? ' active' : '');
     });
   }
