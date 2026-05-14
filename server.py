@@ -121,11 +121,17 @@ def get_directions(route_tag):
 
         # Build directions
         dir_arrows = {"inbound": "←", "outbound": "→", "loop": "↺"}
+        dir_chinese = {"north": "北", "south": "南", "east": "东", "west": "西"}
         directions = []
         for direction in route_el.findall("direction"):
             dir_tag   = direction.get("tag", "")
             dir_title = direction.get("title", dir_tag)
             dir_name  = direction.get("name", "").lower()
+            # Append Chinese character for cardinal directions
+            for eng, chi in dir_chinese.items():
+                if eng in dir_title.lower() and chi not in dir_title:
+                    dir_title = dir_title + " " + chi
+                    break
 
             # Pick arrow based on direction name
             arrow = "→"
