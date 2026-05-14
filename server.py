@@ -127,14 +127,21 @@ def get_directions(route_tag):
             dir_tag   = direction.get("tag", "")
             dir_title = direction.get("title", dir_tag)
             dir_name  = direction.get("name", "").lower()
-            # Add Chinese character after direction word
+            # Add Chinese character only to the direction word before the dash
             import re as _re
+            dash_pos = dir_title.find(" - ")
+            if dash_pos >= 0:
+                prefix = dir_title[:dash_pos]
+                rest   = dir_title[dash_pos:]
+            else:
+                prefix = dir_title
+                rest   = ""
             def add_chinese(m):
                 word = m.group(0)
-                suffix = m.group(2) or ""
-                chi = dir_chinese.get(m.group(1).lower(), "")
+                chi  = dir_chinese.get(m.group(1).lower(), "")
                 return word + " " + chi if chi else word
-            dir_title = _re.sub(r"\b(North|South|East|West)(bound)?\b", add_chinese, dir_title)
+            prefix    = _re.sub(r"\b(North|South|East|West)(bound)?\b", add_chinese, prefix)
+            dir_title = prefix + rest
 
             # Pick arrow based on direction name
             arrow = "→"
